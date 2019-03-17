@@ -28,7 +28,7 @@ namespace GlobalSignConsoleApp.Implementations
             _streamReader = new StreamReader(_filePath);
         }
 
-        //This function parse each line and adds each word into a queue.
+        //This function parse each line and adds each word into a queue to be processed in FIFO manner.
         public void ReadData()
         {
             string line;
