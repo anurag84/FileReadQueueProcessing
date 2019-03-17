@@ -1,10 +1,6 @@
-//using Ninject;
 using Ninject;
-using GlobalSignConsoleApp.Implementations;
 using GlobalSignConsoleApp.Interfaces;
 using System;
-using System.ComponentModel;
-using System.Reflection;
 
 namespace GlobalSignConsoleApp
 {
@@ -16,14 +12,13 @@ namespace GlobalSignConsoleApp
         static void Main(string[] args)
         {
             NinjectInitialise();
-
-           // _ioptions.NumberofRecords = 20;
             _inputSource.ReadData();
             _inputSource.OutputData();
 
             Console.ReadLine();
         }
 
+        //Function to initialise Ninject module and inject dependencies
         public static void NinjectInitialise()
         {
             var kernel = new StandardKernel(new Startup());

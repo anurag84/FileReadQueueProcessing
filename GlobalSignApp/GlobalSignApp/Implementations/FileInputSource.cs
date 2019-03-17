@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace GlobalSignConsoleApp.Implementations
 {
+    //Concrete implmentation for the input interface, for the refrence of this test I have the file stored as part of the project.
     public class FileInputSource : IInputSource
     {
         private StreamReader _streamReader;
@@ -24,11 +25,12 @@ namespace GlobalSignConsoleApp.Implementations
             _queue = Queue;
             _dict = Dictionary;
             _options = options;
+            _streamReader = new StreamReader(_filePath);
         }
 
+        //This function parse each line and adds each word into a queue.
         public void ReadData()
         {
-            _streamReader = new StreamReader( _filePath);
             string line;
 
             while ((line = _streamReader.ReadLine()) != null)
@@ -40,10 +42,12 @@ namespace GlobalSignConsoleApp.Implementations
                     _queue.Enqueue(word.ToLower());
                 }
 
+                //Instead of using lock variable, performance was much better by using "Wait()"
                 Task.Run(() => ProcessData()).Wait();
             }
         }
 
+        //This funciton process each message in queue and add/update "Dictionary" collection.
         public void ProcessData()
         {
             try
@@ -51,22 +55,18 @@ namespace GlobalSignConsoleApp.Implementations
                 while (_queue.Count() > 0)
                 {
                     string word = _queue.Dequeue();
-                    if (_dict.ContainsKey(word) && word != null)
-                    {
-                        ++_dict[word];
-                    }
-                    else
-                    {
-                        _dict[word] = 1;
-                    }
+                    _dict[word] = (_dict.ContainsKey(word) ? ++_dict[word] : _dict[word] = 1);
                 }
             }
             catch (Exception ex)
             {
-                //Exceptions can be logged
+                //Exceptions can be logged, can be implemented using ILogger,
+                //Exceptions arrising from processing queue can be logged to DB and user can be notified to act upon.
             }
         }
 
+        //This function controls output format of the data, its better to keep this in presentation layer and based on output source it can be managed.
+        //For the purpose of test I have kept it here, in produciton environment I would return the result set to frontend and let it decide the format.
         public void OutputData()
         {
             if (_dict.Count() > 0)

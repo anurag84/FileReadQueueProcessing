@@ -9,6 +9,7 @@ namespace GlobalSignConsoleApp.Implementations
 {
     public class GlobalSignTestOptions : IOptions
     {
+        //Member variable to specify numbe of records, default 20 for test purpose.
         public int NumberofRecords  
         {
             get
@@ -17,6 +18,7 @@ namespace GlobalSignConsoleApp.Implementations
             }
         }
 
+        //Member variable to control either Frequently used words or least used words.
         public bool FrequentFirstOrder
         {
             get

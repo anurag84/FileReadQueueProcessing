@@ -1,13 +1,6 @@
-﻿using Ninject;
-using Ninject.Modules;
+﻿using Ninject.Modules;
 using GlobalSignConsoleApp.Implementations;
 using GlobalSignConsoleApp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GlobalSignConsoleApp
 {

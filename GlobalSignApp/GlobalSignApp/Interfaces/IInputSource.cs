@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GlobalSignConsoleApp.Interfaces
 {
+    //Interface to provide extensibility in future to hook up Input source
     public interface IInputSource
     {
         void ReadData();
